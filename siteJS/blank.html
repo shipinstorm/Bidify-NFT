@@ -1,0 +1,230 @@
+<html>
+  <script src="web3.min.js"></script>
+  <script>
+    const ERC20JSON = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function","constant":true},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}];
+
+    const ERC721JSON = [{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"approved","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"operator","type":"address"},{"indexed":false,"internalType":"bool","name":"approved","type":"bool"}],"name":"ApprovalForAll","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"balance","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"ownerOf","outputs":[{"internalType":"address","name":"owner","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"transferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"approve","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"getApproved","outputs":[{"internalType":"address","name":"operator","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"bool","name":"_approved","type":"bool"}],"name":"setApprovalForAll","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"operator","type":"address"}],"name":"isApprovedForAll","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"data","type":"bytes"}],"name":"safeTransferFrom","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+
+    const BidifyJSON = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint64","name":"id","type":"uint64"},{"indexed":false,"internalType":"uint256","name":"time","type":"uint256"}],"name":"AuctionExtended","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint64","name":"id","type":"uint64"},{"indexed":true,"internalType":"address","name":"nftRecipient","type":"address"},{"indexed":false,"internalType":"uint256","name":"price","type":"uint256"}],"name":"AuctionFinished","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint64","name":"id","type":"uint64"},{"indexed":true,"internalType":"address","name":"bidder","type":"address"},{"indexed":false,"internalType":"uint256","name":"price","type":"uint256"}],"name":"Bid","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint64","name":"id","type":"uint64"},{"indexed":true,"internalType":"address","name":"creator","type":"address"},{"indexed":false,"internalType":"address","name":"currency","type":"address"},{"indexed":true,"internalType":"address","name":"platform","type":"address"},{"indexed":false,"internalType":"uint256","name":"token","type":"uint256"},{"indexed":false,"internalType":"uint256","name":"price","type":"uint256"},{"indexed":false,"internalType":"uint8","name":"timeInDays","type":"uint8"},{"indexed":false,"internalType":"address","name":"referrer","type":"address"}],"name":"ListingCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"stateMutability":"payable","type":"fallback"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"renounceOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"stateMutability":"payable","type":"receive"},{"inputs":[{"internalType":"bytes4","name":"interfaceId","type":"bytes4"}],"name":"supportsInterface","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"pure","type":"function"},{"inputs":[{"internalType":"address","name":"operator","type":"address"},{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"bytes","name":"","type":"bytes"}],"name":"onERC721Received","outputs":[{"internalType":"bytes4","name":"","type":"bytes4"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"currency","type":"address"}],"name":"getPriceUnit","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"id","type":"uint256"}],"name":"getListing","outputs":[{"components":[{"internalType":"address","name":"creator","type":"address"},{"internalType":"address","name":"currency","type":"address"},{"internalType":"contract IERC721","name":"platform","type":"address"},{"internalType":"uint256","name":"token","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"address","name":"referrer","type":"address"},{"internalType":"bool","name":"allowMarketplace","type":"bool"},{"internalType":"address","name":"marketplace","type":"address"},{"internalType":"address","name":"highBidder","type":"address"},{"internalType":"uint256","name":"endTime","type":"uint256"},{"internalType":"bool","name":"paidOut","type":"bool"}],"internalType":"struct Bidify.Listing","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"currency","type":"address"},{"internalType":"contract IERC721","name":"platform","type":"address"},{"internalType":"uint256","name":"token","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"uint8","name":"timeInDays","type":"uint8"},{"internalType":"address","name":"referrer","type":"address"},{"internalType":"bool","name":"allowMarketplace","type":"bool"}],"name":"list","outputs":[{"internalType":"uint64","name":"","type":"uint64"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint64","name":"id","type":"uint64"}],"name":"getNextBid","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint64","name":"id","type":"uint64"},{"internalType":"address","name":"marketplace","type":"address"}],"name":"bid","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"uint64","name":"id","type":"uint64"}],"name":"finish","outputs":[],"stateMutability":"nonpayable","type":"function"}];
+
+    const BidifyAddress = "0xe13eC2aB504B6D55a60A080B2486C165880A135D";
+
+    let Bidify;
+    let from;
+
+    window.onload = async () => {
+      if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        from = (await ethereum.request({ method: "eth_requestAccounts" }))[0];
+        Bidify = new web3.eth.Contract(BidifyJSON, BidifyAddress);
+      } else {
+        alert("Metamask is required");
+      }
+    }
+
+    // Convert to a usable value
+    function atomic(value, decimals) {
+      let quantity = decimals;
+      if (value.indexOf(".") !== -1) {
+        quantity -= value.length - value.indexOf(".") - 1;
+      }
+      let atomicized = value.replace(".", "");
+      for (let i = 0; i < quantity; i++) {
+        atomicized += "0";
+      }
+      while (atomicized[0] === "0") {
+        atomicized = atomicized.substr(1);
+      }
+      return atomicized;
+    }
+
+    // Convert to a human readable value
+    function unatomic(value, decimals) {
+      value = value.padStart(decimals + 1, "0");
+      let temp = (
+        value.substr(0, value.length - decimals) +
+        "." +
+        value.substr(value.length - decimals)
+      );
+      while (temp[0] === "0") {
+        temp = temp.substr(1);
+      }
+      while (temp.endsWith("0")) {
+        temp = temp.slice(0, -1);
+      }
+      if (temp.endsWith(".")) {
+        temp = temp.slice(0, -1);
+      }
+      if (temp == "") {
+        return "0";
+      }
+      return temp;
+    }
+
+    // When currency is null, it's ETH
+
+    // Get the decimals of an ERC20
+    async function getDecimals(currency) {
+      if (!currency) {
+        return 18;
+      }
+      return await (new web3.eth.Contract(ERC20JSON, currency)).methods.decimals().call();
+    }
+
+    // Get how many decimals Bidify uses with an ERC20
+    async function getDecimalAccuracy(currency) {
+      return Math.min(await getDecimals(currency), 4);
+    }
+
+    // Get the 'price unit' of an ERC20
+    // An ERC20 which Bidify uses 4 decimals of has a price unit of 0.0001
+    // Every price value will be a multiple of this
+    async function getPriceUnit(currency) {
+      let decimals = await getDecimals(currency);
+      if (!currency) {
+        currency = "0x0000000000000000000000000000000000000000";
+      }
+      return unatomic(await Bidify.methods.getPriceUnit(currency).call(), decimals);
+    }
+
+    // Get the minimum price Bidify will use in relation to an ERC20
+    async function getMinimumPrice(currency) {
+      let decimals = await getDecimals(currency);
+      if (!currency) {
+        currency = "0x0000000000000000000000000000000000000000";
+      }
+      return unatomic(
+        (new web3.utils.BN(await Bidify.methods.getPriceUnit(currency).call()))
+          .mul(new web3.utils.BN(20)).toString(),
+        decimals
+      );
+    }
+
+    // List an ERC71. Returns the auction ID
+    // string, string, string, string, 0 < int <= 30
+    async function list(currency, platform, token, price, days, allowMarketplace) {
+      let decimals = await getDecimals(currency);
+      if (!currency) {
+        currency = "0x0000000000000000000000000000000000000000";
+      }
+
+      await (new web3.eth.Contract(ERC721JSON, platform)).methods.approve(BidifyAddress, token).send({ from });
+      return (await Bidify.methods.list(
+        currency, platform, token, atomic(price, decimals), days,
+        "0x0000000000000000000000000000000000000000", allowMarketplace
+      ).send({ from })).events.ListingCreated.returnValues[0];
+    }
+
+    async function getListing(id) {
+      function nullIfZeroAddress(value) {
+        if (value === "0x0000000000000000000000000000000000000000") {
+          return null;
+        }
+        return value;
+      }
+
+      let raw = await Bidify.methods.getListing(id).call();
+      let currency = nullIfZeroAddress(raw.currency);
+
+      let highBidder = nullIfZeroAddress(raw.highBidder);
+      let currentBid = raw.price;
+      let nextBid = await Bidify.methods.getNextBid(id).call();
+      let decimals = await getDecimals(currency);
+      if (currentBid === nextBid) {
+        currentBid = null;
+      } else {
+        currentBid = unatomic(currentBid, decimals);
+      }
+
+      let referrer = nullIfZeroAddress(raw.referrer);
+      let marketplace = nullIfZeroAddress(raw.marketplace);
+
+      let bids = [];
+      for (let bid of await web3.eth.getPastLogs({
+        fromBlock: 0,
+        toBlock: "latest",
+        address: BidifyAddress,
+        topics: [
+          "0xdbf5dea084c6b3ed344cc0976b2643f2c9a3400350e04162ea3f7302c16ee914",
+          "0x" + (new web3.utils.BN(id)).toString("hex").padStart(64, "0")
+        ]
+      })) {
+        bids.push({
+          bidder: "0x" + bid.topics[2].substr(-40),
+          price: unatomic((new web3.utils.BN(bid.data.substr(2), "hex")).toString(), decimals)
+        });
+      }
+
+      return {
+        id,
+        creator: raw.creator,
+        currency,
+        platform: raw.platform,
+        token: raw.token,
+
+        highBidder,
+        currentBid,
+        nextBid: unatomic(nextBid, decimals),
+
+        referrer,
+        allowMarketplace: raw.allowMarketplace,
+        marketplace,
+
+        endTime: raw.endTime,
+        paidOut: raw.paidOut,
+
+        bids
+      };
+    }
+
+    async function bid(id) {
+      // Ether bid function
+      // await Bidify.methods.bid(id, "0x0000000000000000000000000000000000000000").send({ from, value: await Bidify.methods.getNextBid(id).call() });
+
+      await (
+        new web3.eth.Contract(ERC20JSON, (await getListing(id)).currency)
+      ).methods.approve(BidifyAddress, await Bidify.methods.getNextBid(id).call()).send({ from });
+      await Bidify.methods.bid(id, "0x0000000000000000000000000000000000000000").send({ from });
+    }
+
+    async function getListings(creator, platform) {
+      let creatorTopic = null;
+      if (creator) {
+        creatorTopic = "0x" + creator.substr(2).toLowerCase().padStart(64, "0");
+      }
+
+      let platformTopic = null;
+      if (platform) {
+        platformTopic = "0x" + platform.substr(2).toLowerCase().padStart(64, "0");
+      }
+
+      let res = [];
+      for (let listing of await web3.eth.getPastLogs({
+        fromBlock: 0,
+        toBlock: "latest",
+        address: BidifyAddress,
+        topics: [
+          "0xb8160cd5a5d5f01ed9352faa7324b9df403f9c15c1ed9ba8cb8ee8ddbd50b748",
+          null,
+          creatorTopic,
+          platformTopic
+        ]
+      })) {
+        res.push((new web3.utils.BN(listing.topics[1].substr(2), "hex")).toString());
+      }
+      return res;
+    }
+
+    async function finish(id) {
+      await Bidify.methods.finish(id).send({ from });
+    }
+
+    async function getETHBalance() {
+      return unatomic((await Bidify.methods.balanceOf(from).call()) || "0", 18);
+    }
+
+    async function withdraw() {
+      await Bidify.methods.withdraw(from).send({ from });
+    }
+  </script>
+</html>
