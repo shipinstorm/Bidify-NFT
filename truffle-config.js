@@ -5,7 +5,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 module.exports = {
   networks: {
     develop: {
-      url: "ws://127.0.0.1:8545",
+      url: "ws://127.0.0.1:9545",
     },
     kovan: {
       provider: () => {

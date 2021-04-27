@@ -15,7 +15,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/C/Users/crypt/Desktop/crypto/NFTs/Bidify/Smartcontract code/V0.9 code/bidify/contracts/IDecimals.sol\":\"IDecimals\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/crypt/Desktop/crypto/NFTs/Bidify/Smartcontract code/V0.9 code/bidify/contracts/IDecimals.sol\":{\"keccak256\":\"0xf13c0ffa29ce132c1b72fd0190ff78124afe383fce474105982091862c245046\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3af795b9e83f61815fb8262b7c4d028303a1fc577db62352600cc83ebf33d06a\",\"dweb:/ipfs/QmYcANtkiETyQZATMkGivdDJN8sfkqS87t19v1NvJUeDLH\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/jeffreyhopwood/Documents/apps/bidify/contracts/IDecimals.sol\":\"IDecimals\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/jeffreyhopwood/Documents/apps/bidify/contracts/IDecimals.sol\":{\"keccak256\":\"0xf13c0ffa29ce132c1b72fd0190ff78124afe383fce474105982091862c245046\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3af795b9e83f61815fb8262b7c4d028303a1fc577db62352600cc83ebf33d06a\",\"dweb:/ipfs/QmYcANtkiETyQZATMkGivdDJN8sfkqS87t19v1NvJUeDLH\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -24,20 +24,20 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\n\npragma solidity ^0.8.0;\n\ninterface IDecimals {\n  function decimals() external view returns (uint8);\n}\n",
-  "sourcePath": "C:/Users/crypt/Desktop/crypto/NFTs/Bidify/Smartcontract code/V0.9 code/bidify/contracts/IDecimals.sol",
+  "sourcePath": "/Users/jeffreyhopwood/Documents/apps/bidify/contracts/IDecimals.sol",
   "ast": {
-    "absolutePath": "/C/Users/crypt/Desktop/crypto/NFTs/Bidify/Smartcontract code/V0.9 code/bidify/contracts/IDecimals.sol",
+    "absolutePath": "/Users/jeffreyhopwood/Documents/apps/bidify/contracts/IDecimals.sol",
     "exportedSymbols": {
       "IDecimals": [
-        326
+        1201
       ]
     },
-    "id": 327,
+    "id": 1202,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 320,
+        "id": 1195,
         "literals": [
           "solidity",
           "^",
@@ -45,7 +45,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:2"
+        "src": "33:23:3"
       },
       {
         "abstract": false,
@@ -53,39 +53,39 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 326,
+        "id": 1201,
         "linearizedBaseContracts": [
-          326
+          1201
         ],
         "name": "IDecimals",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "313ce567",
-            "id": 325,
+            "id": 1200,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "decimals",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 321,
+              "id": 1196,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "99:2:2"
+              "src": "99:2:3"
             },
             "returnParameters": {
-              "id": 324,
+              "id": 1199,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 323,
+                  "id": 1198,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 325,
-                  "src": "125:5:2",
+                  "scope": 1200,
+                  "src": "125:5:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -93,10 +93,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 322,
+                    "id": 1197,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "125:5:2",
+                    "src": "125:5:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -105,34 +105,34 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "124:7:2"
+              "src": "124:7:3"
             },
-            "scope": 326,
-            "src": "82:50:2",
+            "scope": 1201,
+            "src": "82:50:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 327,
-        "src": "58:76:2"
+        "scope": 1202,
+        "src": "58:76:3"
       }
     ],
-    "src": "33:102:2"
+    "src": "33:102:3"
   },
   "legacyAST": {
-    "absolutePath": "/C/Users/crypt/Desktop/crypto/NFTs/Bidify/Smartcontract code/V0.9 code/bidify/contracts/IDecimals.sol",
+    "absolutePath": "/Users/jeffreyhopwood/Documents/apps/bidify/contracts/IDecimals.sol",
     "exportedSymbols": {
       "IDecimals": [
-        326
+        1201
       ]
     },
-    "id": 327,
+    "id": 1202,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 320,
+        "id": 1195,
         "literals": [
           "solidity",
           "^",
@@ -140,7 +140,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "33:23:2"
+        "src": "33:23:3"
       },
       {
         "abstract": false,
@@ -148,39 +148,39 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 326,
+        "id": 1201,
         "linearizedBaseContracts": [
-          326
+          1201
         ],
         "name": "IDecimals",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "313ce567",
-            "id": 325,
+            "id": 1200,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "decimals",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 321,
+              "id": 1196,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "99:2:2"
+              "src": "99:2:3"
             },
             "returnParameters": {
-              "id": 324,
+              "id": 1199,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 323,
+                  "id": 1198,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 325,
-                  "src": "125:5:2",
+                  "scope": 1200,
+                  "src": "125:5:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -188,10 +188,10 @@
                     "typeString": "uint8"
                   },
                   "typeName": {
-                    "id": 322,
+                    "id": 1197,
                     "name": "uint8",
                     "nodeType": "ElementaryTypeName",
-                    "src": "125:5:2",
+                    "src": "125:5:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint8",
                       "typeString": "uint8"
@@ -200,20 +200,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "124:7:2"
+              "src": "124:7:3"
             },
-            "scope": 326,
-            "src": "82:50:2",
+            "scope": 1201,
+            "src": "82:50:3",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 327,
-        "src": "58:76:2"
+        "scope": 1202,
+        "src": "58:76:3"
       }
     ],
-    "src": "33:102:2"
+    "src": "33:102:3"
   },
   "compiler": {
     "name": "solc",
@@ -221,7 +221,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-08T14:33:38.018Z",
+  "updatedAt": "2021-04-22T18:05:20.402Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
