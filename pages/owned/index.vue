@@ -23,24 +23,7 @@
 
 <script>
 export default {
-  name: 'Create',
-  components: {
-
-  },
-  data () {
-    return {
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      }
-    }
-  },
+  name: 'Owned',
   computed: {
     owned () {
       return this.$store.state.localStorage.listings.owned
@@ -60,32 +43,6 @@ export default {
 
       await listings.getOwnedListings(this)
       await listings.getOwnedNFTs(this)
-    },
-    async create (item) {
-      const listings = require('~/plugins/listings.js')
-
-      const list = await listings.list({
-        $store: this.$store,
-        params: {
-          platform: item.address,
-          token: item.id,
-          price: '0.1',
-          days: 10
-        }
-      })
-
-      return list
-    },
-    async createNFT (item) {
-      const listings = require('~/plugins/listings.js')
-
-      const tokenId = Math.floor(Math.random() * 999)
-
-      console.log(tokenId)
-
-      const nft = await listings.mint({ $store: this.$store, tokenId })
-
-      return nft
     }
   }
 }

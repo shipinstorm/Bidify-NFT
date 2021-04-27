@@ -5,9 +5,6 @@
 <script>
 export default {
   name: 'CheckConnection',
-  components: {
-
-  },
   mounted () {
     const wallets = require('~/plugins/wallets.js')
 

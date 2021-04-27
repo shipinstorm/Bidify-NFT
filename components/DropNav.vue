@@ -28,9 +28,6 @@
 <script>
 export default {
   name: 'DropNav',
-  components: {
-
-  },
   props: {
     drop: Object
   },
@@ -41,26 +38,8 @@ export default {
   },
   computed: {
     path () {
-      if (this.drop.type === 'ticket') {
-        return '/tickets'
-      }
-
-      if (this.drop.type === 'episode') {
-        return '/episodes'
-      }
-
-      if (this.drop.type === 'drop') {
-        return '/drops'
-      }
-
       return '/'
     }
-  },
-  mounted () {
-
-  },
-  methods: {
-
   }
 }
 </script>

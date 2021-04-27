@@ -91,11 +91,6 @@ export default {
   components: {
     BidifyIcon
   },
-  data () {
-    return {
-
-    }
-  },
   computed: {
     balances (type) {
       const balances = Object.assign({}, this.$store.state.wallets.balances)

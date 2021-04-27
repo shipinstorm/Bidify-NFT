@@ -30,9 +30,6 @@
 <script>
 export default {
   name: 'Listings',
-  components: {
-
-  },
   props: {
     list: Array,
     type: String

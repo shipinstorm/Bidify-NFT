@@ -9,10 +9,6 @@
 <script>
 export default {
   name: 'Home',
-
-  components: {
-
-  },
   computed: {
     list () {
       return this.$store.state.localStorage.listings.list

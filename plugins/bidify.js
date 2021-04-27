@@ -17,6 +17,22 @@ let web3
 let Bidify
 let from
 
+
+/**
+ * Instantiates the Bidify contract
+ * @name init
+ * @method
+ * @memberof Bidify
+ */
+
+export async function init () {
+  const provider = await detectEthereumProvider()
+
+  web3 = await new Web3(provider)
+
+  Bidify = await new web3.eth.Contract(BIDIFY_JSON, BIDIFY_ADDRESS)
+}
+
 /**
  * Called when a user connects or changes accounts
  * @name onAccountChange
@@ -28,16 +44,6 @@ let from
  * @memberof Bidify
  */
 
-
-export async function init () {
-  const provider = await detectEthereumProvider()
-
-  web3 = await new Web3(provider)
-
-  Bidify = await new web3.eth.Contract(BIDIFY_JSON, BIDIFY_ADDRESS)
-}
-
-// anytime an account change is detected
 export async function onAccountChange ({ $store, type, accounts, web3Provider }) {
   const account = accounts[0]
   const keepDisconnect = $store.state.localStorage.wallet.keepDisconnect
@@ -206,8 +212,8 @@ export async function getNFTs() {
 }
 
 /**
- * Lists an ERC721 token with Bidify
- * @name list
+ * Asks for approval for Bidify contract
+ * @name listApprove
  * @method
  * @param {string} currency to utilize
  * @param {string} platform to list

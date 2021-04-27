@@ -44,9 +44,6 @@
 <script>
 export default {
   name: 'DialogList',
-  components: {
-
-  },
   data () {
     return {
       price: 0.1,
@@ -72,9 +69,6 @@ export default {
         token: listModal.token
       }
     }
-  },
-  mounted () {
-
   },
   methods: {
     cancel () {

@@ -134,8 +134,8 @@ export async function get ({ $store }) {
 }
 
 /**
- * Get a user's NFT's in custody, merges with open sea, then commits to store 'localStorage/owned'
- * @name getOwned
+ * Get a users Bidify Listings, merges with open sea, then commits to store 'localStorage/owned'
+ * @name getOwnedListings
  * @method
  * @param {object} $store context
  * @memberof listings
@@ -192,7 +192,7 @@ export async function getOne ({ $store, $route }) {
 
 /**
  * Get a user's NFT's that haven't been listed, merges with open sea, then commits to store 'localStorage/owned'
- * @name getOwned
+ * @name getOwnedNFTs
  * @method
  * @param {object} $store context
  * @memberof listings

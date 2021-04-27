@@ -10,7 +10,7 @@
 
     <Listings :list="nfts" type="nft" />
 
-    <a @click="createNFT()">NFT ME</a>
+    <a style="opacity: 0;" @click="createNFT()">NFT ME</a>
 
   </div>
 </template>
@@ -18,9 +18,6 @@
 <script>
 export default {
   name: 'Create',
-  components: {
-
-  },
   computed: {
     nfts () {
       return this.$store.state.localStorage.listings.nfts
@@ -37,21 +34,6 @@ export default {
 
       await listings.getOwnedNFTs(this)
     },
-    async create (item) {
-      const listings = require('~/plugins/listings.js')
-
-      const list = await listings.list({
-        $store: this.$store,
-        params: {
-          platform: item.address,
-          token: item.id,
-          price: '0.1',
-          days: 10
-        }
-      })
-
-      return list
-    },
     async createNFT () {
       const listings = require('~/plugins/listings.js')
 
@@ -67,6 +49,3 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
-
-</style>
