@@ -334,7 +334,7 @@ Displays a Listing and associated actions
 
 
 **&lt;NFTCard/&gt;**
-Displays an NFT and associated actions. Click/tap will result in &lt;ListingModel/&gt; displayed.
+Displays an NFT and associated actions. Click/tap will result in &lt;DialogList/&gt; displayed.
 ```
 /components/NFTCard.vue
 
