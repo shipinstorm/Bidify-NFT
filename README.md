@@ -174,9 +174,64 @@ $store.commit('localStorage/nfts', list) // populate Owned NFTs
 $store.commit('localStorage/active', listing) // populate the current Listing view
 ```
 
-### Vue
+### Data Mutations
+
+#### Listings
+Merges top-level Bidify 'listings' and OpenSea 'assets', along with some minor transformations. When committed to store, the listing will look similar to this:
+
+```
+// BIDIFY TRANSFORMS
+platform: String, // "0x910Ec0d2eA92f5B6dd39DAB45Ba5891faE8bFB21"
+token: String, // "56"
+allowMarketplace: Boolean, // BIDIFY
+bids: Array, // BIDIFY
+creator: Object, // OPENSEA + BIDIFY
+currency: null,
+currentBid: null, // BIDIFY
+endTime: "1619972542", // BIDIFY
+highBidder: null, // BIDIFY
+id: String, // BIDIFY (ID)
+label: "NFT Name Here",  // OPENSEA (NAME)
+marketplace: null,
+nextBid:"0.1", // BIDIFY
+paidOut: false, // BIDIFY
+referrer: null, // BIDIFY
+
+// OPENSEA BELOW
+animation_original_url: null
+animation_url:null
+asset_contract:Object
+background_color:null
+collection:Object
+creator:Object
+decimals:0
+description: String
+external_link:"https://rarible.com/token/0xfa1..."
+id:22760206
+image_original_url:"https://ipfs.io/ipfs/QmXh..."
+image_preview_url:"https://lh3.googleu..."
+image_thumbnail_url:"https://lh3.googleuserc..."
+image_url: "https://lh3.googleusercontent.c..."
+is_presale:false
+last_sale:Object
+listing_date:null
+name:"I Am Your Ice Ant"
+num_sales:1
+owned:false
+permalink:"https://opensea.io/assets..."
+sell_orders:null
+token_id: "24"
+top_bid:null
+traits:Array[2]
+transfer_fee:null
+transfer_fee_payment_token:null
+```
+
+### Vue Directory
+
 
 #### Layouts
+----
 
 **&lt;DefaultLayout/&gt;**
 
@@ -185,9 +240,9 @@ Wraps all other views. Ensures Bidify is initiated before any views are displaye
 ```
 /layouts/default.vue
 ```
-
+<br><br>
 #### Views
-
+----
 **&lt;Home/&gt;**
 Shows Bidify Listings for both connected and non-connected users
 ```
@@ -227,4 +282,76 @@ Note: May be deprecated.
 route => '/connect'
 /pages/connect/index.vue
 
+```
+
+<br><br>
+#### Components
+----
+**&lt;CheckConnection/&gt;**
+Placed into DefaultLayout, automatically checks a users web3 connection on page load.
+```
+/components/CheckConnection.vue
+
+<client-only>
+    <CheckConnection />
+</client-only>
+```
+
+**&lt;Nav/&gt;**
+Optional on each page, automatically displays correct UI if user is connected or disconnected from app.
+```
+/components/Nav.vue
+
+<Nav />
+```
+
+
+**&lt;DropNav/&gt;**
+Simplified Nav used only for Listings view.
+```
+/components/DropNav.vue
+
+<DropNav :drop="listing" />
+```
+
+**&lt;Listings/&gt;**
+Displays mobile-friendly grids of Cards. Type is required to display either Listing cards of NFT cards. Will also display loading UI and empty state message if no results.
+```
+/components/Listings.vue
+
+<Listings :list="list" type="listing" />
+
+<Listings :list="nfts" type="nft" />
+```
+
+**&lt;Card/&gt;**
+Displays a Listing and associated actions
+```
+/components/Card.vue
+
+<Card :item="item" />
+```
+
+
+**&lt;NFTCard/&gt;**
+Displays an NFT and associated actions. Click/tap will result in &lt;ListingModel/&gt; displayed.
+```
+/components/NFTCard.vue
+
+<NFTCard :item="item" />
+```
+
+**&lt;DialogList/&gt;**
+Dialog modal for listing an NFT.
+```
+/components/DialogList.vue
+
+<DialogList />
+```
+**&lt;DialogBid/&gt;**
+Dialog modal for bidding on a Listing.
+```
+/components/DialogBid.vue
+
+<DialogBid />
 ```
