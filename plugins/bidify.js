@@ -46,7 +46,10 @@ export async function init () {
 
 export async function onAccountChange ({ $store, type, accounts, web3Provider }) {
   const account = accounts[0]
-  const keepDisconnect = $store.state.localStorage.wallet.keepDisconnect
+
+  const ready = $store.state.localStorage.status
+
+  const keepDisconnect = ready ? $store.state.localStorage.wallet.keepDisconnect : null
 
   // no account, trigger a disconnect (this will fire on startup)
   if (!account || keepDisconnect) {
@@ -60,9 +63,9 @@ export async function onAccountChange ({ $store, type, accounts, web3Provider })
 
   Bidify = await new web3.eth.Contract(BIDIFY_JSON, BIDIFY_ADDRESS)
 
-  const raw = await getETHBalance(account)
+  // const raw = await getETHBalance(account)
+  const raw = await web3.eth.getBalance(account)
 
-  // const raw = await web3.eth.getBalance(account)
   const balance = web3.utils.fromWei(raw, 'ether')
 
   // set balance
@@ -212,8 +215,8 @@ export async function getNFTs() {
 }
 
 /**
- * Asks for approval for Bidify contract
- * @name listApprove
+ * Wallet signature for approval for Bidify contract
+ * @name signList
  * @method
  * @param {string} currency to utilize
  * @param {string} platform to list
@@ -224,7 +227,7 @@ export async function getNFTs() {
  * @memberof Bidify
  */
 
-export async function listApprove ({ currency, platform, token, price, days, allowMarketplace = false }) {
+export async function signList ({ currency, platform, token, price, days, allowMarketplace = false }) {
   let decimals = await getDecimals(currency)
 
   if (!currency) {
@@ -334,6 +337,28 @@ export async function getListing (id) {
 }
 
 /**
+ * Signs the bid before calling contract
+ * @name signBid
+ * @method
+ * @param {string} id of listing to bid on
+ * @memberof Bidify
+ */
+
+export async function signBid (id) {
+  let currency = (await getListing(id)).currency
+
+  if (currency) {
+    await (
+      new web3.eth.Contract(ERC20JSON, currency)
+    ).methods.approve(BIDIFY_ADDRESS, await Bidify.methods.getNextBid(id).call()).send({ from })
+
+    await Bidify.methods.bid(id, '0x0000000000000000000000000000000000000000').send({ from })
+  } else {
+    return true
+  }
+}
+
+/**
  * Bids on a listing via Bidify
  * @name bid
  * @method
@@ -341,12 +366,10 @@ export async function getListing (id) {
  * @memberof Bidify
  */
 
-export async function bid(id) {
+export async function bid (id) {
   let currency = (await getListing(id)).currency
+
   if (currency) {
-    await (
-      new web3.eth.Contract(ERC20JSON, currency)
-    ).methods.approve(BIDIFY_ADDRESS, await Bidify.methods.getNextBid(id).call()).send({ from })
     await Bidify.methods.bid(id, '0x0000000000000000000000000000000000000000').send({ from })
   } else {
     await Bidify.methods.bid(id, '0x0000000000000000000000000000000000000000').send({ from, value: await Bidify.methods.getNextBid(id).call() })

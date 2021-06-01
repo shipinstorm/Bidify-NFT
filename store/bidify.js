@@ -2,20 +2,24 @@ export const state = () => ({
   bidding: false,
   listModal: false,
   listing: false,
-  approving: false
+  signing: false,
+  error: null
 })
 
 export const mutations = {
-  bid (state) {
-    state.bidding = true
+  bidding (state, action = true) {
+    state.bidding = action
   },
   listModal (state, visible) {
     state.listModal = visible
   },
-  approving (state, request) {
-    state.approving = request
+  signing (state, request) {
+    state.signing = request
   },
   listing (state, request) {
     state.listing = request
+  },
+  error (state, error) {
+    state.error = error
   }
 }

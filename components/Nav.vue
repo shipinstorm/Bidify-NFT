@@ -19,7 +19,7 @@
         <span>Create</span>
       </NuxtLink>
 
-      <el-dropdown v-if="$device.isMobile" trigger="click" @command="handleNavCommand" placement="bottom">
+      <el-dropdown v-if="($device.isMobile  && connected)" trigger="click" @command="handleNavCommand" placement="bottom">
         <el-button class="is-themed" :circle="true">
           <i class="el-icon-more" />
         </el-button>
@@ -38,7 +38,7 @@
       </el-dropdown>
 
       <el-dropdown v-if="connected" trigger="click" @command="handleCommand">
-        <el-button type="primary" :circle="true">
+        <el-button type="default" class="is-themed" :circle="true">
           <i class="el-icon-user" />
         </el-button>
         <el-dropdown-menu slot="dropdown" style="width: 280px;">
@@ -46,7 +46,7 @@
           <div class="balance">
             <div class="simple-list">
               <h5>
-                Name
+                Wallet
 
                <span class="truncate">
                   {{ address }}
@@ -75,9 +75,9 @@
         </el-dropdown-menu>
       </el-dropdown>
 
-      <NuxtLink v-else class="el-button el-button--info is-round" to="/connect">
-        <span>Connect</span>
-      </NuxtLink>
+      <el-button v-else type="info" :round="true" @click="connect()">
+        Connect
+      </el-button>
 
     </div>
   </div>
@@ -113,6 +113,17 @@ export default {
     }
   },
   methods: {
+    connect () {
+      const wallets = require('~/plugins/wallets.js')
+
+      // clicking connect resets any trickery with app display
+      this.$store.commit('localStorage/resetDisconnect')
+
+      wallets.requestAccounts({
+        $store: this.$store,
+        type: 'browser'
+      })
+    },
     disconnect () {
       const wallets = require('~/plugins/wallets.js')
 

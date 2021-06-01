@@ -35,14 +35,18 @@ export default {
   mounted () {
     setTimeout(() => {
       this.fetchListings()
-    }, 500)
+    })
   },
   methods: {
     async fetchListings () {
       const listings = require('~/plugins/listings.js')
 
+      this.$nuxt.$loading.start()
+
       await listings.getOwnedListings(this)
       await listings.getOwnedNFTs(this)
+
+      this.$nuxt.$loading.finish()
     }
   }
 }

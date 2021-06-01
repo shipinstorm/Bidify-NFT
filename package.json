@@ -12,7 +12,8 @@
     "lint": "npm run lint:js",
     "lint:fix": "eslint --fix --ext \".js,.vue\" --ignore-path .gitignore . ",
     "test:e2e": "wdio wdio.conf.js",
-    "ganache": "ganache-cli"
+    "ganache": "ganache-cli",
+    "truffle-dev": "truffle develop"
   },
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
@@ -24,6 +25,7 @@
     "@truffle/hdwallet-provider": "^1.2.6",
     "@walletconnect/web3-provider": "^1.4.0",
     "core-js": "^3.8.3",
+    "dateformat": "^4.5.1",
     "element-ui": "^2.15.0",
     "nib": "^1.1.2",
     "nuxt": "^2.14.12",

@@ -34,6 +34,7 @@
       </el-form-item>
 
     </el-form>
+
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" :loading="waiting" class="btn-action is-themed" size="default" @click="list()">Start Auction</el-button>
     </span>

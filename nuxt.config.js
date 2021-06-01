@@ -1,3 +1,5 @@
+const APP_URL = 'https://bidify-zcwd7.ondigitalocean.app/'
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -5,7 +7,14 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Non-Fungible Token (NFT) Bidding Auctions' }
+      { hid: 'description', name: 'description', content: 'NFT Auction Market (non-fungible tokens)' },
+      { property: 'og:title', content: 'Bidify - NFT Auction Market' },
+      { property: 'og:description', content: 'NFT Auction Market (non-fungible tokens)' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: APP_URL },
+      { property: 'og:image', content: APP_URL + '/seo/og.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '800' }
     ],
     link: [
       { rel: 'apple-touch-icon', href: '/icon/apple-touch-icon.png', sizes: '180x180' },

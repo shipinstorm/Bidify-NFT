@@ -222,20 +222,52 @@ export async function getOwnedNFTs ({ $store }) {
 export async function list ({ $store, params }) {
   const bidify = require('~/plugins/bidify.js')
 
-  $store.commit('bidify/approving', true)
+  $store.commit('bidify/signing', true)
 
-  const approval = await bidify.listApprove(params)
-
-  console.log(approval)
+  await bidify.signList(params)
 
   $store.commit('bidify/listing', true)
-  $store.commit('bidify/approving', false)
+  $store.commit('bidify/signing', false)
 
   const result = await bidify.list(params)
 
   $store.commit('bidify/listing', false)
 
   return result
+}
+
+/**
+ * Lists an NFT to Bidify
+ * @name list
+ * @method
+ * @param {object} $store context
+ * @param {object} params for listing
+ * @memberof listings
+ */
+
+export async function bid ({ $store, id }) {
+  const bidify = require('~/plugins/bidify.js')
+
+  $store.commit('bidify/signing', true)
+
+  try {
+    await bidify.signBid(id)
+  } catch (err) {
+    $store.commit('bidify/error', err.message)
+    return
+  }
+
+  $store.commit('bidify/bidding', true)
+  $store.commit('bidify/signing', false)
+
+  try {
+    await bidify.bid(id)
+  } catch (err) {
+    $store.commit('bidify/error', err.message)
+    return
+  }
+
+  $store.commit('bidify/bidding', false)
 }
 
 /**

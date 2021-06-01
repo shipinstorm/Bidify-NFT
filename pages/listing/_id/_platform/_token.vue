@@ -1,6 +1,6 @@
 <template>
   <div v-if="listing" class="container is-min-height">
-    <DropNav :drop="listing" />
+    <ListingNav />
 
     <div class="contents">
       <el-row :gutter="32">
@@ -47,10 +47,11 @@
         <el-col :span="8" :xs="24">
           <article v-if="listing" class="is-themed">
             <h1>
-              {{ listing.name }}
+              {{ listing.label }}
             </h1>
 
-            <p style="white-space: pre-line;">{{ listing.description }}</p>
+            <p v-if="listing.description" style="white-space: pre-line;">{{ listing.description }}</p>
+            <p v-else><em class="is-muted">This auction has no description</em></p>
 
             <div class="simple-list">
               <h5>
@@ -138,34 +139,8 @@
       </el-row>
     </div>
 
-    <el-drawer
-      :visible.sync="$device.isMobile"
-      :show-close="false"
-      :withHeader="false"
-      size="132px"
-      direction="btt"
-      :modal="false"
-      :modal-append-to-body="false"
-      :append-to-body="false"
-      :wrapperClosable="false"
-    >
-      <div class="panel-action">
-        <a v-if="listing.owned" class="el-button is-themed is-round" :href="listing.external_link" target="_blank">
-          SELL
-        </a>
-        <a v-else class="el-button is-themed is-round" :href="listing.external_link" target="_blank">
-          BUY
-        </a>
+    <BidAction :listing="listing" />
 
-        <span v-if="listing.owned">
-          You can sell your {{ listing.type }} on xxx.
-        </span>
-
-        <span v-else>
-          You can buy this {{ listing.type }} on xx.
-        </span>
-      </div>
-    </el-drawer>
   </div>
 </template>
 
@@ -180,9 +155,6 @@ const carouselHeight = (fs) => {
 
 export default {
   name: 'Listing',
-  components: {
-
-  },
   data () {
     return {
       current: 0,
@@ -213,6 +185,9 @@ export default {
   mounted () {
     this.getListing()
   },
+  beforeDestroy () {
+    this.$store.commit('localStorage/active', null)
+  },
   methods: {
     carouselChange (index) {
       this.current = index
@@ -224,7 +199,11 @@ export default {
     async getListing () {
       const listings = require('~/plugins/listings.js')
 
+      this.$nuxt.$loading.start()
+
       await listings.getOne(this)
+
+      this.$nuxt.$loading.finish()
     }
   }
 }
@@ -233,23 +212,6 @@ export default {
 <style scoped lang="stylus">
   .container
     padding-bottom 132px
-
-  .el-drawer__wrapper
-    top auto
-    height 132px
-
-  .panel-action
-    padding $space-l $space-m
-
-    span
-      font-size 12px
-      text-align center
-      display block
-      padding $space-s
-
-    .el-button
-      width 100%
-      text-decoration none
 
   .fs
     position fixed !important

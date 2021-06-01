@@ -13,11 +13,20 @@
     </div>
 
     <div v-else class="empty-state">
-      <div>
+      <div v-if="type === 'listing'">
         No listings
 
         <small>
           Check back soon.
+          <br/>
+        </small>
+      </div>
+
+      <div v-if="type === 'nft'">
+        No NFT's
+
+        <small>
+          You haven't created any NFT's yet.
           <br/>
         </small>
       </div>

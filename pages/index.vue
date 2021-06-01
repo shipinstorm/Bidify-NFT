@@ -23,7 +23,11 @@ export default {
     async fetchListings () {
       const listings = require('~/plugins/listings.js')
 
+      this.$nuxt.$loading.start()
+
       await listings.get(this)
+
+      this.$nuxt.$loading.finish()
     }
   }
 }

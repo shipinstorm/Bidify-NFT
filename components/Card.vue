@@ -17,7 +17,7 @@
         title="Auction"
         width="240"
         trigger="hover"
-        :content="`Ends in 23h 2m 3s`">
+        :content="`Ends in ${time}`">
 
         <div slot="reference" class="action unlocked">
           {{ time }}
@@ -62,7 +62,7 @@ export default {
         return
       }
 
-      this.time = `${t.days}d ${t.hours}h ${t.minutes}m`
+      this.time = `${t.days}d ${t.hours}h ${t.minutes}m ${t.seconds}s`
     },
     timeLeft () {
       const timeStamp = this.item.endTime * 1000
