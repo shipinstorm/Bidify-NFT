@@ -31,7 +31,7 @@ Time-based bidding auctions for NFT's (non-fungible tokens).
 Bidify uses Nuxt.js as the underlying framework for app architecture.
 ```bash
 
-# install nuxt cli
+# install nuxt cli (or globally if you prefer with -g)
 $ npm i @nuxt/cli
 
 # install dependencies
@@ -53,6 +53,38 @@ $ npm run generate
 
 For a detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
+## Build Setup
+
+Using digital ocean:
+
+* Create new app
+* Connect to repo / branch of choice
+* Ensure under Settings > App Spec that run_command is set as follows:
+
+```
+run_command: npm start -- --hostname 0.0.0.0 --port 8080
+```
+
+* Here is a full example with "Crypto-SI/BidifyUI" as the targeted repo, and "Amsterdam" (ams) as the region:
+
+```
+name: bidify
+region: ams
+services:
+- build_command: npm run build
+  environment_slug: node-js
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: Crypto-SI/BidifyUI
+  http_port: 8080
+  instance_count: 1
+  instance_size_slug: basic-xs
+  name: bidify
+  routes:
+  - path: /
+  run_command: npm start -- --hostname 0.0.0.0 --port 8080
+```
 
 ## Plugins
 
