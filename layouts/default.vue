@@ -58,6 +58,9 @@ export default {
     }
   },
   mounted () {
+    const settings = require('@/utils/settings')
+    settings.set(this.$config)
+
     setTimeout(() => {
       this.initBidify()
     }, 500)

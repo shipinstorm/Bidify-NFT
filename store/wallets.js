@@ -1,4 +1,4 @@
-// import { VALID_CHAINS } from '@/utils/constants'
+import { settings } from '@/utils/settings'
 
 export const state = () => ({
   connected: false, // user wallet was successfully connected
@@ -62,7 +62,7 @@ export const mutations = {
     state.error = false
   },
   chain (state, chainId) {
-    // state.chainInvalid = !VALID_CHAINS.includes(chainId)
+    state.chainInvalid = !settings.validChains.includes(chainId)
 
     state.chainId = chainId
   },

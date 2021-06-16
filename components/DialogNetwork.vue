@@ -6,14 +6,14 @@
       :close-on-click-modal="false"
       :close-on-press-escape="false"
       :show-close="false"
-      width="400px"
+      width="500px"
     >
 
-      <el-button class="btn-close is-themed" type="default" circle @click="cancel()">
+      <!-- <el-button class="btn-close is-themed" type="default" circle @click="cancel()">
         <i class="el-icon-close icon" />
-      </el-button>
+      </el-button> -->
 
-      <span>Change network to Mainnet and refresh the page.</span>
+      <span>Change network to <span v-for="(chain, i) in chainNames" :key="i">{{chain}} </span> and refresh the page.</span>
     </el-dialog>
 
 </template>
@@ -24,6 +24,9 @@ export default {
   computed: {
     chainInvalid () {
       return this.$store.state.wallets.chainInvalid
+    },
+    chainNames () {
+      return this.$config.chainNames
     }
   }
 }
@@ -40,5 +43,16 @@ export default {
 
   .btn-action
     width 100%
+
+  .el-dialog
+    padding $space-m
+    max-width 90%
+
+  .el-dialog__header
+    padding $space-m
+
+  .el-dialog__body
+    padding 0 $space-m $space-m $space-m
+    font-size $size-m
 
 </style>

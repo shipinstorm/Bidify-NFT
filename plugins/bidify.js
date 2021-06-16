@@ -11,7 +11,8 @@
 
 import Web3 from 'web3'
 import detectEthereumProvider from '@metamask/detect-provider'
-import { ERC20JSON, ERC721JSON, BIDIFY_ADDRESS, BIDIFY_JSON, NFT_ADDRESS } from '@/utils/constants'
+import { ERC20JSON, ERC721JSON, BIDIFY_JSON } from '@/utils/constants'
+import { settings } from '@/utils/settings'
 
 let web3
 let Bidify
@@ -30,7 +31,7 @@ export async function init () {
 
   web3 = await new Web3(provider)
 
-  Bidify = await new web3.eth.Contract(BIDIFY_JSON, BIDIFY_ADDRESS)
+  Bidify = await new web3.eth.Contract(BIDIFY_JSON, settings.bidifyAddress)
 }
 
 /**
@@ -61,7 +62,7 @@ export async function onAccountChange ({ $store, type, accounts, web3Provider })
   from = account
   web3 = web3Provider
 
-  Bidify = await new web3.eth.Contract(BIDIFY_JSON, BIDIFY_ADDRESS)
+  Bidify = await new web3.eth.Contract(BIDIFY_JSON, settings.bidifyAddress)
 
   // const raw = await getETHBalance(account)
   const raw = await web3.eth.getBalance(account)
@@ -234,7 +235,7 @@ export async function signList ({ currency, platform, token, price, days, allowM
     currency = '0x0000000000000000000000000000000000000000'
   }
 
-  await (new web3.eth.Contract(ERC721JSON, platform)).methods.approve(BIDIFY_ADDRESS, token).send({ from })
+  await (new web3.eth.Contract(ERC721JSON, platform)).methods.approve(settings.bidifyAddress, token).send({ from })
 }
 
 /**
@@ -302,7 +303,7 @@ export async function getListing (id) {
   for (let bid of await web3.eth.getPastLogs({
     fromBlock: 0,
     toBlock: 'latest',
-    address: BIDIFY_ADDRESS,
+    address: settings.bidifyAddress,
     topics: [
       '0xdbf5dea084c6b3ed344cc0976b2643f2c9a3400350e04162ea3f7302c16ee914',
       '0x' + (new web3.utils.BN(id)).toString('hex').padStart(64, '0')
@@ -350,7 +351,7 @@ export async function signBid (id) {
   if (currency) {
     await (
       new web3.eth.Contract(ERC20JSON, currency)
-    ).methods.approve(BIDIFY_ADDRESS, await Bidify.methods.getNextBid(id).call()).send({ from })
+    ).methods.approve(settings.bidifyAddress, await Bidify.methods.getNextBid(id).call()).send({ from })
 
     await Bidify.methods.bid(id, '0x0000000000000000000000000000000000000000').send({ from })
   } else {
@@ -400,7 +401,7 @@ export async function getListings(creator, platform) {
   for (let listing of await web3.eth.getPastLogs({
     fromBlock: 0,
     toBlock: 'latest',
-    address: BIDIFY_ADDRESS,
+    address: settings.bidifyAddress,
     topics: [
       '0xb8160cd5a5d5f01ed9352faa7324b9df403f9c15c1ed9ba8cb8ee8ddbd50b748',
       null,
@@ -457,7 +458,7 @@ export async function withdraw() {
 const TestNFTJSON = [{'inputs':[{'internalType':'string','name':'name_','type':'string'},{'internalType':'string','name':'symbol_','type':'string'}],'stateMutability':'nonpayable','type':'constructor'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'owner','type':'address'},{'indexed':true,'internalType':'address','name':'approved','type':'address'},{'indexed':true,'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'Approval','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'owner','type':'address'},{'indexed':true,'internalType':'address','name':'operator','type':'address'},{'indexed':false,'internalType':'bool','name':'approved','type':'bool'}],'name':'ApprovalForAll','type':'event'},{'anonymous':false,'inputs':[{'indexed':true,'internalType':'address','name':'from','type':'address'},{'indexed':true,'internalType':'address','name':'to','type':'address'},{'indexed':true,'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'Transfer','type':'event'},{'inputs':[{'internalType':'bytes4','name':'interfaceId','type':'bytes4'}],'name':'supportsInterface','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'address','name':'owner','type':'address'}],'name':'balanceOf','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'ownerOf','outputs':[{'internalType':'address','name':'','type':'address'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[],'name':'name','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[],'name':'symbol','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'tokenURI','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[],'name':'baseURI','outputs':[{'internalType':'string','name':'','type':'string'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'address','name':'owner','type':'address'},{'internalType':'uint256','name':'index','type':'uint256'}],'name':'tokenOfOwnerByIndex','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[],'name':'totalSupply','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'uint256','name':'index','type':'uint256'}],'name':'tokenByIndex','outputs':[{'internalType':'uint256','name':'','type':'uint256'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'approve','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'getApproved','outputs':[{'internalType':'address','name':'','type':'address'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'address','name':'operator','type':'address'},{'internalType':'bool','name':'approved','type':'bool'}],'name':'setApprovalForAll','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'owner','type':'address'},{'internalType':'address','name':'operator','type':'address'}],'name':'isApprovedForAll','outputs':[{'internalType':'bool','name':'','type':'bool'}],'stateMutability':'view','type':'function','constant':true},{'inputs':[{'internalType':'address','name':'from','type':'address'},{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'transferFrom','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'from','type':'address'},{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'safeTransferFrom','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'from','type':'address'},{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'tokenId','type':'uint256'},{'internalType':'bytes','name':'_data','type':'bytes'}],'name':'safeTransferFrom','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'address','name':'to','type':'address'},{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'_mintActual','outputs':[],'stateMutability':'nonpayable','type':'function'},{'inputs':[{'internalType':'uint256','name':'tokenId','type':'uint256'}],'name':'_mint','outputs':[],'stateMutability':'nonpayable','type':'function'}]
 
 export async function mintNFT (token) {
-  await (new web3.eth.Contract(TestNFTJSON, NFT_ADDRESS)).methods._mint(token).send({ from })
+  await (new web3.eth.Contract(TestNFTJSON, settings.nftAddress)).methods._mint(token).send({ from })
 
-  return { token, address: NFT_ADDRESS }
+  return { token, address: settings.nftAddress }
 }

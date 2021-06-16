@@ -11,7 +11,7 @@
 
 import Web3 from 'web3'
 import { OpenSeaPort, Network } from 'opensea-js'
-import { INFURA_URL, OPENSEA_URL_ASSETS } from '@/utils/constants'
+import { settings } from '@/utils/settings'
 
 // export interface Asset {
 // The asset's token ID, or null if ERC-20
@@ -26,7 +26,7 @@ import { INFURA_URL, OPENSEA_URL_ASSETS } from '@/utils/constants'
 // decimals?: number
 // }
 
-const provider = new Web3.providers.HttpProvider(INFURA_URL)
+const provider = new Web3.providers.HttpProvider(settings.infuraURL)
 
 export const seaport = new OpenSeaPort(provider, {
   networkName: Network.Main
@@ -98,7 +98,7 @@ export async function getAssets (list) {
   })
 
   try {
-    results = await fetch(`${OPENSEA_URL_ASSETS}?order_direction=desc&offset=0&limit=40${query}`, options)
+    results = await fetch(`${settings.openseaAssetsURL}?order_direction=desc&offset=0&limit=40${query}`, options)
   } catch (e) {
     console.log('no results')
     return null
@@ -121,7 +121,7 @@ export async function getAsset ({ address, tokenId }) {
   let results
 
   try {
-    results = await fetch(`${OPENSEA_URL_ASSETS}?asset_contract_address=${address}&token_ids=${tokenId}`, options)
+    results = await fetch(`${settings.openseaAssetsURL}?asset_contract_address=${address}&token_ids=${tokenId}`, options)
   } catch (e) {
     console.log('no results')
     return null
@@ -150,7 +150,7 @@ export async function getOwned (account) {
   const query = `&owner=${account}`
 
   try {
-    results = await fetch(`${OPENSEA_URL_ASSETS}?order_direction=desc&offset=0&limit=40${query}`, options)
+    results = await fetch(`${settings.openseaAssetsURL}?order_direction=desc&offset=0&limit=40${query}`, options)
   } catch (e) {
     console.log('no results')
     return null
