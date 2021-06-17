@@ -90,20 +90,24 @@ async function addAssetsToNfts (nfts) {
 
   const assets = transformAssets(await seaport.getAssets(assetList))
 
-  return nfts.map((l, i) => {
-    let match = assets.find(t => t.address === l.platform && t.token === l.token_id)
+  return nfts.map((n, i) => {
+    let match = assets.find((a) => {
+      console.log(a, n)
+
+      return (a.address.toUpperCase() === n.platform.toUpperCase()) && (a.token_id === n.token)
+    })
 
     if (!match) {
       match = {
         label: `NFT ${i}`,
         creator: {
-          address: l.creator,
+          address: n.creator,
           user: {}
         }
       }
     }
 
-    return Object.assign({}, l, match)
+    return Object.assign({}, n, match)
   })
 }
 

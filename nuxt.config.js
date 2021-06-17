@@ -6,15 +6,15 @@ export default {
     title: 'Bidify',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'viewport', name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'NFT Auction Market (non-fungible tokens)' },
-      { property: 'og:title', content: 'Bidify - NFT Auction Market' },
-      { property: 'og:description', content: 'NFT Auction Market (non-fungible tokens)' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: APP_URL },
-      { property: 'og:image', content: APP_URL + '/seo/og.png' },
-      { property: 'og:image:width', content: '1200' },
-      { property: 'og:image:height', content: '800' }
+      { hid: 'og:title', property: 'og:title', content: 'Bidify - NFT Auction Market' },
+      { hid: 'og:description', property: 'og:description', content: 'NFT Auction Market (non-fungible tokens)' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: APP_URL },
+      { hid: 'og:image', property: 'og:image', content: APP_URL + '/seo/og.png' },
+      { hid: 'og:image:width', property: 'og:image:width', content: '1200' },
+      { hid: 'og:image:height', property: 'og:image:height', content: '800' }
     ],
     link: [
       { rel: 'apple-touch-icon', href: '/icon/apple-touch-icon.png', sizes: '180x180' },
@@ -73,6 +73,9 @@ export default {
     '@nuxtjs/color-mode'
   ],
 
+  device: {
+    refreshOnResize: true
+  },
   // 'google-gtag': {
   //   id: 'UA-XXXXXXXX',
   //   config: {
