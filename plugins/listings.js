@@ -90,9 +90,9 @@ async function addAssetsToNfts (nfts) {
 
   const assets = transformAssets(await seaport.getAssets(assetList))
 
-  return nfts.map((n, i) => {
+  return assetList.map((n, i) => {
     let match = assets.find((a) => {
-      return (a.address.toUpperCase() === n.platform.toUpperCase()) && (a.token_id === n.token)
+      return (a.address.toUpperCase() === n.address.toUpperCase()) && (a.token === n.token)
     })
 
     if (!match) {
