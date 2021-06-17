@@ -6,7 +6,7 @@ services:
   github:
     branch: master
     deploy_on_push: true
-    repo: thehopwood/bidify
+    repo: Bidify/BidifyUI
   http_port: 8080
   instance_count: 1
   instance_size_slug: professional-xs
