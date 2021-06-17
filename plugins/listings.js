@@ -92,8 +92,6 @@ async function addAssetsToNfts (nfts) {
 
   return nfts.map((n, i) => {
     let match = assets.find((a) => {
-      console.log(a, n)
-
       return (a.address.toUpperCase() === n.platform.toUpperCase()) && (a.token_id === n.token)
     })
 
